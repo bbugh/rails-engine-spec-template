@@ -49,6 +49,9 @@ end
 # RSpec doesn't understand engine dummy path, fix that.
 gsub_file 'spec/spec_helper.rb', '../../config/environment', '../dummy/config/environment.rb'
 
+# Rspec defaults to Rails.root but that's spec/dummy...
+gsub_file 'spec/spec_helper.rb', 'Rails.root.join("spec/support/**/*.rb")', '"#{File.dirname(__FILE__)}/support/**/*.rb"'
+
 # Require factory girl
 insert_into_file 'spec/spec_helper.rb', "\nrequire 'factory_girl_rails'", after: "require 'rspec/autorun'" 
 
