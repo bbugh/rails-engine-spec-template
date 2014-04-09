@@ -1,12 +1,12 @@
 error = false
 
-unless try(:name) && File.exist?("lib/#{name}/engine.rb")
+unless try(:name) && File.exist?(File.join(destination_root, 'lib', name, 'engine.rb'))
   say "ERROR: This is for engines only. You need to create a new engine with"
   say "       'rails plugin new' and specify '--mountable' or '--full'."
   error = true
 end
 
-if File.exist?('test/dummy') || File.exist?('test') 
+if File.exist?(File.join(destination_root, 'test'))
   say "ERROR: You need to generate the plugin with -T specified so it doesn't"
   say "       create a test setup. Delete the plugin directory and try again."
   error = true
@@ -40,6 +40,6 @@ git gc: '--quiet'
 
 say %{
   Things to do:
-    - edit #{name}.gemspec to set correct info
+    - edit #{name}.gemspec to set correct info and remove bundler warnings.
     - rake db:migrate
 }
